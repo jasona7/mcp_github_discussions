@@ -67,7 +67,6 @@ The server provides the following tools:
 - `get_repository_issues`: Fetch issues from a repository
 - `get_repository_discussions`: Fetch discussions from a repository
 - `get_top_repos_by_activity`: Get trending repositories by activity
-- `get_repo_id`: Get the GitHub repository ID (helper function)
 
 ## Configuration
 
@@ -78,21 +77,54 @@ The server can be configured using environment variables:
 - `MCP_PORT`: Port to bind the server to (default: 8004)
 
 
-## Integration with Next.js
+## Using the Client 
 
-In your Next.js application, you can call the MCP server like this:
+```
+python scripts/mcp/github/mcp_github_client.py
+╭──────────────────────────────── GitHub Discussions Explorer ────────────────────────────────╮
+│ MCP GitHub Discussions Explorer                                                             │
+│ A terminal UI for interacting with GitHub Discussions                                       │
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+Connecting to server...
+Connected to server. 5 tools available.
 
-```javascript
-const response = await fetch('http://localhost:8004/mcp', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    tool: 'search_repositories',
-    args: { query: 'react' }
-  })
-});
+Available Actions:
+1. Browse Top Repositories
+2. List Discussions (by repo)
+3. Get Discussion Details
+4. Check Server Status
+5. Exit
+6. Toggle Debug Mode
+Enter the number of the action you want to perform [1/2/3/4/5/6] (1): 1
+
+Browse Top Repositories:
+1. Top Repos by Recent Activity
+2. Top Repos by Star Count
+3. Top Python Repos
+4. Top JavaScript Repos
+5. Top AI/LLM Repos
+6. Back to Main Menu
+Select repository category [1/2/3/4/5/6] (1): 3
+Number of repositories to show (10): 3
+Finding top Python repositories...
+                             Top Repositories (3)                             
+┏━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
+┃ # ┃ Repository                       ┃ Stars  ┃ Language ┃ Has Discussions ┃
+┡━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
+│ 1 │ public-apis/public-apis          │ 334406 │ Python   │ ✗               │
+│ 2 │ donnemartin/system-design-primer │ 294897 │ Python   │ ✗               │
+│ 3 │ vinta/awesome-python             │ 238668 │ Python   │ ✗               │
+└───┴──────────────────────────────────┴────────┴──────────┴─────────────────┘
+None of the repositories have discussions enabled.
+
+Available Actions:
+1. Browse Top Repositories
+2. List Discussions (by repo)
+3. Get Discussion Details
+4. Check Server Status
+5. Exit
+6. Toggle Debug Mode
+Enter the number of the action you want to perform [1/2/3/4/5/6] (1): 
 ```
 
 ## Troubleshooting
